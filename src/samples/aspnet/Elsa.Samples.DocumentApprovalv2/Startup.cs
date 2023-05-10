@@ -45,6 +45,12 @@ namespace Elsa.Samples.DocumentApprovalv2
                                     a.Port = 2525;
                                     a.DefaultSender = "noreply@local.host";
                                 })
+/*                                .AddQuartzTemporalActivities(configureQuartz: quartz => quartz.UsePersistentStore(store =>
+                                {
+                                    store.UseJsonSerializer();
+                                    store.UsePostgres("Server=localhost;Port=5432;Database=elsa;User Id=postgres;Password=Qwerty123;");
+                                    store.UseClustering();
+                                }))*/
                                 .AddHangfireTemporalActivities(hangfire => hangfire.UsePostgreSqlStorage("Server=localhost;Port=5432;Database=elsa;User Id=postgres;Password=Qwerty123;"))
                                 .AddWorkflow<DocumentApprovalWorkflow>());
 
