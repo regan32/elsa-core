@@ -9,6 +9,9 @@ using Elsa.Persistence.EntityFramework.Core.Extensions;
 using Elsa.Persistence.EntityFramework.PostgreSql;
 using Storage.Net;
 using Elsa.Extensions;
+using Quartz;
+using Hangfire;
+using Hangfire.PostgreSql;
 
 namespace Elsa.Samples.DocumentApprovalv2
 {
@@ -42,7 +45,7 @@ namespace Elsa.Samples.DocumentApprovalv2
                                     a.Port = 2525;
                                     a.DefaultSender = "noreply@local.host";
                                 })
-                                .AddQuartzTemporalActivities()
+                                .AddHangfireTemporalActivities(hangfire => hangfire.UsePostgreSqlStorage("Server=localhost;Port=5432;Database=elsa;User Id=postgres;Password=Qwerty123;"))
                                 .AddWorkflow<DocumentApprovalWorkflow>());
 
         }

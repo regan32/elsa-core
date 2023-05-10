@@ -69,7 +69,7 @@ namespace Elsa.Samples.DocumentApprovalv2.Workflows
                                     $"Don't forget to review document {context.GetVariable<dynamic>("Document")!.Id}"))
                             .ThenNamed("Reminder");
                 })
-                .Add<Join>(join => join.WithMode(Join.JoinMode.WaitAny)).WithName("Join")
+                .Add<Join>(join => join.WithMode(Join.JoinMode.WaitAny).WithEagerJoin(true)).WithName("Join")
                 .SendEmail(activity => activity
                     .WithSender("workflow@acme.com")
                     .WithRecipient("josh@acme.com")
